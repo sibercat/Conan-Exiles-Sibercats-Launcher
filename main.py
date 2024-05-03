@@ -1,4 +1,3 @@
-#0.0.46 - Fixed  type object 'QMessageBox' has no attribute 'showerror' QMessageBox.showerror("Error", "The specified text file does not exist.")
 import os
 import sys
 import subprocess
