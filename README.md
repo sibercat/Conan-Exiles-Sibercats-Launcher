@@ -1,4 +1,4 @@
-If your going to use .exe executable was created by PyInstaller so you could get a false positive you know the deal.
+If your going to use .exe the executable was created by PyInstaller so you could get a false positive you know the deal.
 
 ===========================================================================
 
