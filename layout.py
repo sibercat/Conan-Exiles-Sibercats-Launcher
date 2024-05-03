@@ -300,7 +300,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Sibercats launcher v0.0.41"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Sibercats launcher v0.0.46"))
         self.groupBox_7.setTitle(_translate("MainWindow", "Network"))
         self.labelExternaliP.setText(_translate("MainWindow", "External IP:"))
         self.labelLocalIp.setText(_translate("MainWindow", "Ipv4 Address Local:"))
