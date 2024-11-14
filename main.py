@@ -1,4 +1,4 @@
-#v0.0.46
+#0.0.49
 import os
 import sys
 import subprocess
@@ -18,6 +18,7 @@ from PyQt6.QtCore import QMetaObject, QThread, pyqtSignal
 # Define constants for file paths
 TEXT_FILE_PATH = r"DedicatedServerLauncher\ConanExilesDedicatedServer\ConanSandbox\Mods\modlist.txt"
 LOG_FOLDER_PATH = r"DedicatedServerLauncher\ConanExilesDedicatedServer\ConanSandbox\Saved\Logs"
+LOG_FILE_PATH = r"DedicatedServerLauncher\ConanExilesDedicatedServer\ConanSandbox\Saved\Logs\ConanSandbox.log"
 
 # Define get_external_ip function to retrieve the external IP
 def get_external_ip(timeout=10):
@@ -68,6 +69,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton1.clicked.connect(self.openDedicatedServer)
         self.pushButton2.clicked.connect(self.checkDatabaseIntegrity)
         self.pushButton3.clicked.connect(self.openTextFile)
+        self.pushButton5.clicked.connect(self.openTextFileLogFile)
         self.pushButton4.clicked.connect(self.deleteLogFiles)
         self.pushButton7.clicked.connect(self.cleanEE)
         self.pushButton8.clicked.connect(self.cleanAOC)
@@ -148,9 +150,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except subprocess.CalledProcessError as e:
            QMessageBox.critical(self, "Error", f"Failed to run netstat: {e}")
            return None
-
+           
     def check_port(self):
-        protocol = 'UDP'  # This can be adjusted or taken from a user input
+        protocols = ['UDP', 'TCP']  # Define both protocols
         ip_address = socket.gethostbyname(socket.gethostname())  # Automatically gets the host IP
         ports_string = self.linePortProtocalbeingUsed.text().strip()  # Get and trim user input for ports
     
@@ -158,7 +160,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             QMessageBox.warning(self, "Input Error", "Please enter at least one port number.")
             return
     
-        ports_to_search = [port.strip() for port in ports_string.split(',')]  # Split the input by comma to handle multiple ports
+        ports_to_search = [port.strip() for port in ports_string.split(',')]  # Split the input by comma
     
         if not all(port.isdigit() for port in ports_to_search):
             QMessageBox.warning(self, "Input Error", "Please enter only numeric port values.")
@@ -166,31 +168,44 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
         ports_to_search = [int(port) for port in ports_to_search]  # Convert ports to integers
     
-        used_ports, unused_ports = [], []
-    
-        for port in ports_to_search:
-            if self.is_port_used(port, protocol, ip_address):
-                used_ports.append(str(port))
-            else:
-                unused_ports.append(str(port))
-    
-        if used_ports:
-            QMessageBox.information(self, "UDP Ports Used", f"The following ports are being used: {', '.join(used_ports)}")
-        if unused_ports:
-            QMessageBox.information(self, "UDP Ports Not Used", f"The following ports are not being used: {', '.join(unused_ports)}")
+        for protocol in protocols:
+            used_ports, unused_ports = [], []
+        
+            for port in ports_to_search:
+                if self.is_port_used(port, protocol, ip_address):
+                    used_ports.append(str(port))
+                else:
+                    unused_ports.append(str(port))
+        
+            if used_ports:
+                QMessageBox.information(self, f"{protocol} Ports Used", 
+                                      f"The following {protocol} ports are being used: {', '.join(used_ports)}")
+            if unused_ports:
+                QMessageBox.information(self, f"{protocol} Ports Not Used", 
+                                      f"The following {protocol} ports are not being used: {', '.join(unused_ports)}")
 
     def is_port_used(self, port, protocol, ip_address):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock = socket.socket(socket.AF_INET, 
+                            socket.SOCK_DGRAM if protocol == 'UDP' else socket.SOCK_STREAM)
         sock.settimeout(1)  # Set a timeout for the connection attempt
-    
+        
         try:
-           sock.bind((ip_address, port))
-           sock.close()
-           return False
+            if protocol == 'UDP':
+                sock.bind((ip_address, port))
+                sock.close()
+                return False
+            else:  # TCP
+                result = sock.connect_ex((ip_address, port))
+                sock.close()
+                return result == 0
         except socket.error:
             return True
-
-
+        finally:
+            try:
+                sock.close()
+            except:
+                pass       
+           
     # Get Local ipv4 address Start of block
     def set_local_ipv4_address(self):
         try:
@@ -290,7 +305,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if os.path.exists(TEXT_FILE_PATH):
             subprocess.Popen(["notepad.exe", TEXT_FILE_PATH])
         else:
-            QMessageBox.critical(self, "Error", "modlist.txt file does not exist.")
+            QMessageBox.critical(self, "Error", "Could not find modlist.txt. Make sure Sibercats Launcher is in the same directory with DedicatedServerLauncher.exe")
+            
+    def openTextFileLogFile(self):
+        if os.path.exists(LOG_FILE_PATH):
+            subprocess.Popen(["notepad.exe", LOG_FILE_PATH])
+        else:
+            QMessageBox.critical(self, "Error", "Could not find ConanSandbox.log. Make sure Sibercats Launcher is in the same directory with DedicatedServerLauncher.exe")
 
     def deleteLogFiles(self):
         if os.path.exists(LOG_FOLDER_PATH):
@@ -304,7 +325,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     os.remove(os.path.join(LOG_FOLDER_PATH, file))
             QMessageBox.information(self, "Log Files Deleted", "Log files deleted successfully.")
         else:
-            QMessageBox.critical(self, "Error", "The specified log folder does not exist.")
+            QMessageBox.critical(self, "Error", "Could not find log folder. Make sure Sibercats Launcher is in the same directory with DedicatedServerLauncher.exe")      
                 
     def cleanEE(self):
         db_file_path, _ = QFileDialog.getOpenFileName(self, "Select game.db File", "", "Database files (*.db)")
