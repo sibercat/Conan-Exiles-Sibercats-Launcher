@@ -1,4 +1,4 @@
-You can find .exe executable in [GitHub Pages](https://github.com/sibercat/SibercatsLauncher/releases) If your going to use .exe the executable was created by PyInstaller so you could get a false positive, you know the deal.
+Executable can be found in [Releases](https://github.com/sibercat/SibercatsLauncher/releases) If your going to use .exe the executable was created by PyInstaller so you could get a false positive, you know the deal.
 
 ===========================================================================
 
