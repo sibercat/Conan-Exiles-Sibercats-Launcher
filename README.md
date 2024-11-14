@@ -2,7 +2,7 @@ If your going to use .exe the executable was created by PyInstaller so you could
 
 ===========================================================================
 
-![alt text](https://cdn.discordapp.com/attachments/517436895387451399/1235755677008269332/image.png?ex=663586a8&is=66343528&hm=a116d844a22cbb1b80537e72cc82547b299067cc8b607f64700e7f115618bd9f&)
+![alt text](https://cdn.discordapp.com/attachments/512167211943591943/1306385603981607002/Untitled.png?ex=673679e7&is=67352867&hm=47fb4130f44dffe4cc4928eded09b3b46bea35a8edf63f6ce3d298ba0a48d8de&)
 
 The main features of the application include:
 
