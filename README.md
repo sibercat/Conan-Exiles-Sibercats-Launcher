@@ -2,7 +2,7 @@ Executable can be found in [Releases](https://github.com/sibercat/SibercatsLaunc
 
 ===========================================================================
 
-![alt text](https://cdn.discordapp.com/attachments/512167211943591943/1306385603981607002/Untitled.png?ex=675abb27&is=675969a7&hm=269297f2f1244976e395abcd9069fb2cb988a1a98f7e66f415bb23119b23333c&)
+![alt text](https://cdn.discordapp.com/attachments/512167211943591943/1306385603981607002/Untitled.png?ex=680f58a7&is=680e0727&hm=488ea204903fda18b0efd46fa3347c65685121c2471a99267d52ac920fa77255)
 
 The main features of the application include:
 
