@@ -2,7 +2,7 @@ Executable can be found in [Releases](https://github.com/sibercat/SibercatsLaunc
 
 ===========================================================================
 
-![alt text](https://raw.githubusercontent.com/sibercat/Conan-Exiles-Sibercats-Launcher/refs/heads/main/Untitled.webp)
+![alt text](https://raw.githubusercontent.com/sibercat/Conan-Exiles-Sibercats-Launcher/refs/heads/main/preview.webp)
 
 The main features of the application include:
 
