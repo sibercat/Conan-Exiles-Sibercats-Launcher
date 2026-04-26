@@ -1,37 +1,40 @@
-Executable can be found in [Releases](https://github.com/sibercat/SibercatsLauncher/releases) If your going to use .exe the executable was created by [auto-py-to-exe](https://github.com/brentvollebregt/auto-py-to-exe) so you could get a false positive, you know the deal.
+# Sibercats Launcher v1.0.0
 
-===========================================================================
+A Windows desktop tool for managing Conan Exiles dedicated servers. Built with C# / .NET 10 WinForms.
 
-![alt text](https://raw.githubusercontent.com/sibercat/Conan-Exiles-Sibercats-Launcher/refs/heads/main/preview.webp)
+## Requirements
 
-The main features of the application include:
+- [.NET 10 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) (Desktop Runtime)
+- `sqlite3.exe` — included in the release
 
-1. **Server Management:**
+## Features
 
-Start the Conan Exiles dedicated server launcher
-Open the modlist.txt file for editing
-Delete log files from the server's log folder
+### Main
+- Launch the Conan Exiles Dedicated Server Launcher
+- Open `modlist.txt` directly in Notepad
+- Open the server log (`ConanSandbox.log`)
+- Delete saved log files
 
+### SQL Database
+- **Check DB Integrity** — runs `PRAGMA integrity_check`. If corruption is detected, offers to attempt recovery and saves a `_recovered.db` copy next to the original
+- **Optimize/Vacuum** — runs `PRAGMA optimize` + `VACUUM` in the background to defrag and shrink the database
 
-2. **Database Management:**
+### DB Clean Up
+- **Scan for Mods** — loads a `game.db` and detects all installed mods from `actor_position` class paths
+- Select individual mods to remove their data (actors, properties, inventories, building instances)
+- **Pippi** expands into individual sub-items (Wallpaper, Glorb, Egress, Warper, etc.) so you can clean specific components
 
-Check the integrity of the SQLite database file (game.db)
-Optimize and vacuum the database
-Attempt database recovery
+### Other Tools
+- **ID Stripper** — extracts numeric IDs from `.txt`, `.json` (RowName), or `.csv` files and outputs them as a SQL-ready `('id1','id2',...)` list saved next to the source file
 
+### Network
+- Displays local IPv4 and external IP
+- Check if a UDP/TCP port is in use
 
-3. **Mod Cleanup:**
+## Building
 
-Remove traces of various mods from the game.db file, including ExilesExtreme, The Age of Calamitous, Endgame Extended Weapon Arsenal, Emberlight, Savage Wilds, Shima's Compendium, and Warrior Mutator
-Remove Pippi-related data from the database based on selected checkboxes
+```
+dotnet publish -c Release -o bin/publish-final
+```
 
-
-4. **Network Tools:**
-
-Display the local IPv4 address and external IP address
-Check if specific UDP ports are being used on the local machine
-
-
-5. **ID Extraction:**
-
-Extract IDs or numbers from text files, JSON files, and CSV files
+Output: `SibercatsLauncher.exe` (~200 KB) + `sqlite3.exe`

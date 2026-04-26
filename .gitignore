@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+*.user
+SQLQueriesMods/
+mod_config.json
+launcher.cfg
