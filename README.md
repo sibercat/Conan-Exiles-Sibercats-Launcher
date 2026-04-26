@@ -7,6 +7,10 @@ A Windows desktop tool for managing Conan Exiles dedicated servers. Built with C
 - [.NET 10 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) (Desktop Runtime)
 - `sqlite3.exe` — included in the release
 
+![Dashboard](https://raw.githubusercontent.com/sibercat/The-Isle-Evrima-Server-Launcher/refs/heads/main/docs/Dashboard.webp)
+
+Executable can be found here [Releases](https://github.com/sibercat/IsleServerLauncher/releases)
+
 ## Features
 
 ### Main
