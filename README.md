@@ -2,15 +2,15 @@
 
 A Windows desktop tool for managing Conan Exiles dedicated servers. Built with C# / .NET 10 WinForms.
 
-## Requirements
-
-- [.NET 10 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) (Desktop Runtime)
-- `sqlite3.exe` — included in the release
-
 ![Dashboard](https://raw.githubusercontent.com/sibercat/Conan-Exiles-Sibercats-Launcher/refs/heads/main/preview.webp)
 
 Executable can be found here [Releases](https://github.com/sibercat/Conan-Exiles-Sibercats-Launcher/releases)
 
+## Requirements
+
+- [.NET 10 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) (Desktop Runtime)
+- `sqlite3.exe` — included in the release
+- 
 ## Features
 
 ### Main
